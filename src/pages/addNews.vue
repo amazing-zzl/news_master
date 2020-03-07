@@ -67,7 +67,6 @@
                 :options="catelist"
                 :props="cateProps"
                 v-model="addForm.newsCategory"
-                @change="handleChange"
               >
               </el-cascader>
             </el-form-item>
@@ -143,7 +142,7 @@ export default {
       catelist: [],
       cateProps: {
         label: "categoryName",
-        value: "categoryId",
+        value: "categoryType",
         children: "children"
       },
       // 动态参数列表数据
@@ -177,13 +176,7 @@ export default {
       this.catelist = res.data;
       console.log(this.catelist);
     },
-    // 级联选择器选中项变化，会触发这个函数
-    handleChange() {
-      // console.log(this.addForm.newsCategory);
-      // if (this.addForm.newsCategory.length !== 3) {
-      //   this.addForm.newsCategory = [];
-      // }
-    },
+
     beforeTabLeave(activeName, oldActiveName) {
       // console.log('即将离开的标签页名字是：' + oldActiveName)
       // console.log('即将进入的标签页名字是：' + activeName)
@@ -195,7 +188,7 @@ export default {
     },
     // 处理图片预览效果
     handlePreview(file) {
-      console.log(file);
+      //console.log(file);
       this.previewPath = file.response.data.url;
       this.previewVisible = true;
     },
@@ -208,16 +201,16 @@ export default {
       const i = this.addForm.newsPicture.findIndex(x => x.pic === filePath);
       // 3. 调用数组的 splice 方法，把图片信息对象，从 newsPicture 数组中移除
       this.addForm.newsPicture.splice(i, 1);
-      console.log(this.addForm);
+      //console.log(this.addForm);
     },
     // 监听图片上传成功的事件
     handleSuccess(response) {
-      console.log(response);
+      //console.log(response);
       // 1. 拼接得到一个图片信息对象
       const picInfo = { pic: response.data.tmp_path };
       // 2. 将图片信息对象，push 到newsPicture数组中
       this.addForm.newsPicture.push(picInfo);
-      console.log(this.addForm);
+      //console.log(this.addForm);
     },
     // 添加新闻
     add() {
@@ -262,12 +255,6 @@ export default {
     }
   },
   computed: {
-    cateId() {
-      if (this.addForm.newsCategory.length === 3) {
-        return this.addForm.newsCategory[2];
-      }
-      return null;
-    }
   }
 };
 </script>
